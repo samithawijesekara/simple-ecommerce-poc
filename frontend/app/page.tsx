@@ -10,28 +10,6 @@ export default function Home() {
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const products = await axios.get(`${BASE_API_URL}/product`);
-        setProducts(products.data);
-      } catch (error) {
-        console.log("Error : ", error);
-      }
-    };
-    fetchProducts();
-
-    const fetchCartProducts = async () => {
-      try {
-        const cartProducts = await axios.get(`${BASE_API_URL}/product/cart`);
-        setCartProducts(cartProducts.data);
-      } catch (error) {
-        console.log("Error : ", error);
-      }
-    };
-    fetchCartProducts();
-  }, []);
-
   const fetchProducts = async () => {
     try {
       const products = await axios.get(`${BASE_API_URL}/product`);
@@ -49,6 +27,11 @@ export default function Home() {
       console.log("Error : ", error);
     }
   };
+
+  useEffect(() => {
+    fetchProducts();
+    fetchCartProducts();
+  }, []);
 
   const handleAddToCart = async (productId: number) => {
     try {
